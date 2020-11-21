@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_07_001756) do
+ActiveRecord::Schema.define(version: 2020_11_20_222117) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -72,6 +72,13 @@ ActiveRecord::Schema.define(version: 2020_11_07_001756) do
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient_type_and_recipient_id"
   end
 
+  create_table "room_types", force: :cascade do |t|
+    t.string "name"
+    t.boolean "available", default: false
+    t.integer "hotel_id", null: false
+    t.index ["hotel_id"], name: "index_room_types_on_hotel_id"
+  end
+
   create_table "services", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "provider"
@@ -103,5 +110,6 @@ ActiveRecord::Schema.define(version: 2020_11_07_001756) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "room_types", "hotels"
   add_foreign_key "services", "users"
 end
