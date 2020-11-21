@@ -1,10 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'ffaker'
 
 Hotel.create([
   { name: "Comfort Inn & Suites Market Ctr", location: "7138 N Stemmons Fwy, Dallas, TX, 75247" },
@@ -18,3 +12,7 @@ Hotel.create([
   { name: "Warwick Melrose Hotel Dallas - Demo", location: "3015 Oak Lawn Avenue, Dallas, TX, 75219" },
   { name: "Econo Lodge Airport I-35 North Hotel", location: "2275 Valley View Lane, Dallas, TX, 75234" },
 ])
+
+Hotel.find_each do |hotel|
+  hotel.room_types.create(rand(1..10).times.map { { name: FFaker::Address.unique.secondary_address, available: [true, false].sample } })
+end

@@ -4,17 +4,16 @@ class HotelsController < ApplicationController
   # GET /hotels
   # GET /hotels.json
   def index
-    @hotels = Hotel.all
-  end
-
-  # GET /hotels/1
-  # GET /hotels/1.json
-  def show
+    @hotels = if user_signed_in?
+      Hotel.all
+    else
+      Hotel.with_vacancies
+    end
   end
 
   # GET /hotels/new
   def new
-    @hotel = Hotel.new
+    @hotel = Hotel.new(room_types: [RoomType.new])
   end
 
   # GET /hotels/1/edit
@@ -69,6 +68,6 @@ class HotelsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def hotel_params
-      params.require(:hotel).permit(:name, :location)
+      params.require(:hotel).permit(:name, :location, room_types_attributes: [:name, :available, :id, :_destroy])
     end
 end
