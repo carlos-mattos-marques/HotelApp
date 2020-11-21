@@ -4,4 +4,6 @@ class Hotel < ApplicationRecord
 
   validates :name, :location, presence: true
   validates_associated :room_types
+  
+  scope :with_vacancies, -> { joins(:room_types).where(room_types: { available: true }).uniq }
 end

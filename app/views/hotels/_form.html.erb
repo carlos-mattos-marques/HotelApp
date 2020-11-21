@@ -21,10 +21,23 @@
     <%= form.text_field :location, class: 'form-control' %>
   </div>
 
+  <h3>Inventory:</h3>
+  </br>
   <div class="form-group">
-    <%= form.label :inventory %>
-    <br />
-    ...
+    <ul class="list-group">
+      <%= form.fields_for :room_types do |room_types_form| %>
+        <li class="list-group-item">
+          <div class="form-group">
+            <%= room_types_form.label :name %>
+            <%= room_types_form.text_field :name, class: 'form-control' %>
+          </div>
+          <div class="form-check">
+            <%= room_types_form.check_box :available, class: 'form-check-input' %>
+            <%= room_types_form.label :available, class: 'form-check-label' %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
   </div>
 
   <div class="form-group">

@@ -14,5 +14,15 @@
 
   <dt>Location:</dt>
   <dd><%= @hotel.location %></dd>
-
+</dl>
+<h3>Inventory:</h3>
+</br>
+<dl class="dl-horizontal">
+  <ul class="list-group">
+    <% @hotel.room_types.each do |room| %>
+      <li class="list-group-item <%= room.available ? 'active' : 'disabled' %>">
+        <dd><%= room.name %></dd>
+      </li>
+    <% end %>
+  </ul>
 </dl>
